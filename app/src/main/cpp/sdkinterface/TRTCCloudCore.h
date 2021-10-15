@@ -22,7 +22,6 @@ public:
     ITRTCCloud * getTRTCCloud();
     ITXDeviceManager * getDeviceManager();
     ITRTCCloudCallback* GetITRTCCloudCallback();
-    void setEnv(JNIEnv* env);
 
 
 
