@@ -32,7 +32,7 @@ public class SimpleTRTCNDKActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        TRTCNativeManager.nativeDestory();
+        TRTCNativeManager.nativeDestroy();
         super.onDestroy();
 
     }

@@ -77,11 +77,12 @@ Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_enterRoom(JNIEnv *env
 
 }
 JNIEXPORT void JNICALL
-Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_nativeDestory(JNIEnv *env,
+Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_nativeDestroy(JNIEnv *env,
                                                                          jclass clazz) {
     // TODO: implement nativeDestory()
     trtcCloudCore->PreUninit();
     TRTCCloudCore::Destory();
+    trtcCloudCore= nullptr;
 
 }
 JNIEXPORT void JNICALL

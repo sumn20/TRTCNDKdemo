@@ -35,7 +35,7 @@ public class TRTCNativeManager {
 
     public static native  void nativeStartRemoteView(String userId, int streamType, TXCloudVideoView view);
 
-    public static native void nativeDestory();
+    public static native void nativeDestroy();
 
 
 
