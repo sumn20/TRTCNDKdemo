@@ -12,9 +12,6 @@ TRTCCloudCore *TRTCCloudCore::m_instance = nullptr;
 TRTCCloudCore *TRTCCloudCore::GetInstance(JNIEnv *env) {
         if (m_instance == nullptr) {
             m_instance = new TRTCCloudCore(env);
-
-
-
         }
     return m_instance;
 }

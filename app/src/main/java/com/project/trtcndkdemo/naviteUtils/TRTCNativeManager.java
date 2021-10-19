@@ -9,7 +9,6 @@ public class TRTCNativeManager {
     static {
         System.loadLibrary("trtcndkdemo");
     }
-    public static native void initNativeTRTC();
 
     /**
      * 获取sdk版本

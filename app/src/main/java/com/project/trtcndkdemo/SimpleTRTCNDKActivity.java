@@ -20,7 +20,6 @@ public class SimpleTRTCNDKActivity extends BaseActivity {
         String userID=getIntent().getStringExtra("userID");
         String roomID=getIntent().getStringExtra("roomID");
         binding.toolbar.setTitle("房间号:"+roomID);
-        TRTCNativeManager.initNativeTRTC();
         TRTCNativeManager.nativeStartLocalVideo(true,binding.localVideo);
         TRTCNativeManager.startLocalAudio();
         TRTCNativeManager.enterRoom(roomID,userID,GenerateTestUserSig.genTestUserSig(userID),GenerateTestUserSig.SDKAPPID);

@@ -19,18 +19,11 @@ void checkTRTC(JNIEnv *env){
 #ifdef __cplusplus
 extern "C" {
 #endif
-JNIEXPORT void JNICALL
-Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_initNativeTRTC(JNIEnv *env, jclass clazz) {
-    // TODO: implement initNativeTRTC()
-    if (trtcCloudCore== nullptr){
-        trtcCloudCore=TRTCCloudCore::GetInstance(env);
 
-    }
-
-}
 JNIEXPORT jstring JNICALL
 Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_getSDKVersion(JNIEnv *env, jclass clazz) {
     // TODO: implement getSDKVersion()
+    checkTRTC(env);
     return env->NewStringUTF(liteav::ITRTCCloud::getTRTCShareInstance(nullptr)->getSDKVersion());
 }
 
@@ -79,6 +72,7 @@ Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_enterRoom(JNIEnv *env
 JNIEXPORT void JNICALL
 Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_nativeDestroy(JNIEnv *env,
                                                                          jclass clazz) {
+    checkTRTC(env);
     // TODO: implement nativeDestory()
     trtcCloudCore->UninitCallBack();
     trtcCloudCore->PreUninit();
