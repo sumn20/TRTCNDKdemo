@@ -30,7 +30,7 @@ public class TRTCNativeManager {
     /**
      * 进房
      */
-    public static native void enterRoom(String roomID,String userID,String userSig,int sdkAppID);
+    public static native void enterRoom(String roomID,String userID);
 
     public static native  void nativeStartRemoteView(String userId, int streamType, TXCloudVideoView view);
 

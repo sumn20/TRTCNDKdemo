@@ -22,7 +22,7 @@ public class SimpleTRTCNDKActivity extends BaseActivity {
         binding.toolbar.setTitle("房间号:"+roomID);
         TRTCNativeManager.nativeStartLocalVideo(true,binding.localVideo);
         TRTCNativeManager.startLocalAudio();
-        TRTCNativeManager.enterRoom(roomID,userID,GenerateTestUserSig.genTestUserSig(userID),GenerateTestUserSig.SDKAPPID);
+        TRTCNativeManager.enterRoom(roomID,userID);
         JniCallBack.setCallBak((userID1, available) -> {
             TRTCNativeManager.nativeStartRemoteView(userID1, TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_BIG,binding.remoteVideo);
         });
