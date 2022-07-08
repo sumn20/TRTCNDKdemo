@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <cstddef>
 #include <stdint.h>
+#include <TRTCTypeDef.h>
 
 namespace liteav {
 
@@ -25,7 +26,6 @@ namespace liteav {
 #if defined(BUILD_TRTC_SDK)
 #define TRTC_API __attribute__((visibility("default")))
 #else
-#define TRTC_API
 #endif
 #endif
     const char kSdkDemoKey[] =

@@ -26,7 +26,6 @@ public class SimpleTRTCNDKActivity extends BaseActivity {
         JniCallBack.setCallBak((userID1, available) -> {
             TRTCNativeManager.nativeStartRemoteView(userID1, TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_BIG,binding.remoteVideo);
         });
-
     }
 
     @Override

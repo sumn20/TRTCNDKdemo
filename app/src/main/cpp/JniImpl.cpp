@@ -27,7 +27,7 @@ Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_getSDKVersion(JNIEnv 
                                                                          jclass clazz) {
     // TODO: implement getSDKVersion()
     checkTRTC(env);
-    return env->NewStringUTF(liteav::ITRTCCloud::getTRTCShareInstance(nullptr)->getSDKVersion());
+    return env->NewStringUTF(trtcCloudCore->getTRTCCloud()->getSDKVersion());
 }
 
 JNIEXPORT void JNICALL
@@ -96,7 +96,8 @@ Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_nativeStartRemoteView
     checkTRTC(env);
     const char *userID = env->GetStringUTFChars(user_id, nullptr);
 
-    trtcCloudCore->getTRTCCloud()->startRemoteView(userID, (trtc::TRTCVideoStreamType) stream_type,
+    trtcCloudCore->getTRTCCloud()->startRemoteView(userID,
+                                                   (liteav::TRTCVideoStreamType) stream_type,
                                                    view);
     env->ReleaseStringUTFChars(user_id, userID);
 
