@@ -8,7 +8,7 @@
 #include "LogUtil.h"
 using  namespace liteav;
 
-class TRTCCloudCore : public ITRTCCloudCallback{
+class TRTCCloudCore : public ITRTCCloudCallback,ITRTCVideoRenderCallback{
 public:
     static TRTCCloudCore* GetInstance(JNIEnv *env);
     static void Destory();
@@ -48,6 +48,8 @@ public:
     virtual void onCameraDidReady();
 
     virtual void onMicDidReady();
+    virtual void onFirstVideoFrame(const char* userId, const TRTCVideoStreamType streamType, const int width, const int height);
+    virtual void onRenderVideoFrame(const char* userId, TRTCVideoStreamType streamType, TRTCVideoFrame* frame) ;
 private:
     static TRTCCloudCore* m_instance;
     ITRTCCloud* m_pCloud = nullptr;

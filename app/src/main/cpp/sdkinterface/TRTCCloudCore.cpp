@@ -42,6 +42,9 @@ TRTCCloudCore::~TRTCCloudCore() {
 
 void TRTCCloudCore::InitCallBack() {
     m_pCloud->addCallback(this);
+    m_pCloud->setLocalVideoRenderCallback(liteav::TRTCVideoPixelFormat_Texture_2D,liteav::TRTCVideoBufferType_Texture,
+                                          this);
+
 }
 
 void TRTCCloudCore::UninitCallBack() {
@@ -167,5 +170,15 @@ void TRTCCloudCore::onStatistics(const TRTCStatistics &statis) {
 void TRTCCloudCore::onUserVoiceVolume(TRTCVolumeInfo *userVolumes, uint32_t userVolumesCount,
                                       uint32_t totalVolume) {
 
+}
+
+void TRTCCloudCore::onRenderVideoFrame(const char *userId, TRTCVideoStreamType streamType,
+                                       TRTCVideoFrame *frame) {
+    LOGCATI("onRenderVideoFrame");
+}
+
+void TRTCCloudCore::onFirstVideoFrame(const char *userId, const TRTCVideoStreamType streamType,
+                                      const int width, const int height) {
+    LOGCATI("onFirstVideoFrame");
 }
 

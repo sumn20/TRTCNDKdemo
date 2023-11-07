@@ -37,8 +37,7 @@ Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_nativeStartLocalVideo
                                                                                  jobject view) {
     // TODO: implement nativeStartLocalVideo()
     checkTRTC(env);
-    trtcCloudCore->getTRTCCloud()->startLocalPreview(front_camera, view);
-
+    trtcCloudCore->getTRTCCloud()->startLocalPreview(front_camera, nullptr);
 }
 JNIEXPORT void JNICALL
 Java_com_project_trtcndkdemo_naviteUtils_TRTCNativeManager_startLocalAudio(JNIEnv *env,
