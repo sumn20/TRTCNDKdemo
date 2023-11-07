@@ -1,10 +1,13 @@
-// Copyright (c) 2022 Tencent. All rights reserved.
-
+/**
+ * Copyright (c) 2022 Tencent. All rights reserved.
+ * Module:   DeprecatedTRTCCloud @ TXLiteAVSDK
+ * Function: TRTC 废弃接口
+ */
 #ifndef __IDEPRECATEDTRTCCLOUD_H__
 #define __IDEPRECATEDTRTCCLOUD_H__
 
-#include <TRTCTypeDef.h>
-#include <TRTCCloudCallback.h>
+#include "TRTCTypeDef.h"
+#include "TRTCCloudCallback.h"
 
 namespace liteav {
 
@@ -15,33 +18,39 @@ class IDeprecatedTRTCCloud {
     //                    弃用接口（建议使用对应的新接口）
     //
     /////////////////////////////////////////////////////////////////////////////////
-    /// @name  弃用接口（建议使用对应的新接口）
 
     /**
      * 启用音量大小提示
      *
-     * @deprecated v10.1 版本开始不推荐使用，建议使用 {@link enableAudioVolumeEvaluation}(interval, enable_vad) 替代之。
+     * @deprecated v10.1 版本开始不推荐使用，建议使用 {@link enableAudioVolumeEvaluation}(enable, params) 替代之。
      */
     trtc_attribute_deprecated virtual void enableAudioVolumeEvaluation(uint32_t interval) = 0;
 
     /**
+     * 启用音量大小提示
+     *
+     * @deprecated v11.2 版本开始不推荐使用，建议使用 {@link enableAudioVolumeEvaluation}(enable, params) 替代之。
+     */
+    trtc_attribute_deprecated virtual void enableAudioVolumeEvaluation(uint32_t interval, bool enable_vad) = 0;
+
+    /**
      * 设置音频质量
      *
-     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link startLocalAudio}:quality 替代之。
+     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link startLocalAudio} 替代之。
      */
     trtc_attribute_deprecated virtual void startLocalAudio() = 0;
 
     /**
      * 开始显示远端视频画面
      *
-     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link startRemoteView}:streamType:view: 替代之。
+     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link startRemoteView} 替代之。
      */
     trtc_attribute_deprecated virtual void startRemoteView(const char* userId, TXView rendView) = 0;
 
     /**
      * 停止显示远端视频画面，同时不再拉取该远端用户的视频数据流
      *
-     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link stopRemoteView}:streamType: 替代之。
+     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link stopRemoteView} 替代之。
      */
     trtc_attribute_deprecated virtual void stopRemoteView(const char* userId) = 0;
 
@@ -69,35 +78,35 @@ class IDeprecatedTRTCCloud {
     /**
      * 设置远端图像的渲染模式
      *
-     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link setRemoteRenderParams}:streamType:params 替代之。
+     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link setRemoteRenderParams} 替代之。
      */
     trtc_attribute_deprecated virtual void setRemoteViewFillMode(const char* userId, TRTCVideoFillMode mode) = 0;
 
     /**
      * 设置远端图像的顺时针旋转角度
      *
-     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link setRemoteRenderParams}:streamType:params: 替代之。
+     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link setRemoteRenderParams} 替代之。
      */
     trtc_attribute_deprecated virtual void setRemoteViewRotation(const char* userId, TRTCVideoRotation rotation) = 0;
 
     /**
      * 开始显示远端用户的辅路画面
      *
-     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link startRemoteView}:streamType:view: 替代之。
+     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link startRemoteView} 替代之。
      */
     trtc_attribute_deprecated virtual void startRemoteSubStreamView(const char* userId, TXView rendView) = 0;
 
     /**
      * 停止显示远端用户的辅路画面
      *
-     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link stopRemoteView}:streamType: 替代之。
+     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link stopRemoteView} 替代之。
      */
     trtc_attribute_deprecated virtual void stopRemoteSubStreamView(const char* userId) = 0;
 
     /**
      * 设置辅路画面的填充模式
      *
-     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link setRemoteRenderParams}:streamType:params: 替代之。
+     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link setRemoteRenderParams} 替代之。
      */
     trtc_attribute_deprecated virtual void setRemoteSubStreamViewFillMode(const char* userId, TRTCVideoFillMode mode) = 0;
 
@@ -111,7 +120,7 @@ class IDeprecatedTRTCCloud {
     /**
      * 设置音频质量
      *
-     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link startLocalAudio}:quality 替代之。
+     * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link startLocalAudio} 替代之。
      */
     trtc_attribute_deprecated virtual void setAudioQuality(TRTCAudioQuality quality) = 0;
 
@@ -221,7 +230,7 @@ class IDeprecatedTRTCCloud {
     /**
      * 设置所有音效音量
      *
-     * @deprecated v7.3 版本开始不推荐使用，建议使用 {@link TXAudioEffectManager} 中的 {@link setMusicPublishVolume} 和{@link setMusicPlayoutVolume} 替代之。
+     * @deprecated v7.3 版本开始不推荐使用，建议使用 {@link TXAudioEffectManager} 中的 {@link setMusicPublishVolume} 和 {@link setMusicPlayoutVolume} 替代之。
      */
     trtc_attribute_deprecated virtual void setAllAudioEffectsVolume(int volume) = 0;
 
@@ -277,9 +286,16 @@ class IDeprecatedTRTCCloud {
     /**
      * 启动屏幕分享
      *
-     * @deprecated v7.2 版本开始不推荐使用，建议使用 startScreenCapture:streamType:encParam: 替代之。
+     * @deprecated v7.2 版本开始不推荐使用，建议使用 {@link startScreenCapture} 替代之。
      */
     trtc_attribute_deprecated virtual void startScreenCapture(TXView rendView) = 0;
+
+    /**
+     * 设置第三方美颜的视频数据回调
+     *
+     * @deprecated v11.4 版本开始不推荐使用，建议使用 {@link enableLocalVideoCustomProcess} 和 {@link setLocalVideoCustomProcessCallback} 替代之。
+     */
+    trtc_attribute_deprecated virtual int setLocalVideoProcessCallback(TRTCVideoPixelFormat pixelFormat, TRTCVideoBufferType bufferType, ITRTCVideoFrameCallback* callback) = 0;
 
 /**
  * 获取摄像头设备列表
@@ -443,12 +459,15 @@ class IDeprecatedTRTCCloud {
     trtc_attribute_deprecated virtual void startCameraDeviceTest(TXView renderView) = 0;
 #endif
 
+/**
+ * 开始进行摄像头测试
+ */
 #if _WIN32
     trtc_attribute_deprecated virtual void startCameraDeviceTest(ITRTCVideoRenderCallback* callback) = 0;
 #endif
 
 /**
- * 开始进行摄像头测试
+ * 停止进行摄像头测试
  *
  * @deprecated v8.0 版本开始不推荐使用，建议使用 {@link TXDeviceManager} 中的 {@link stopCameraDeviceTest} 接口替代之。
  */
@@ -495,7 +514,7 @@ class IDeprecatedTRTCCloud {
 /**
  * 开始应用内的屏幕分享（iOS）
  *
- * @deprecated v8.6 版本开始不推荐使用，建议使用 {@link startScreenCaptureInApp}:encParam: 接口替代之。
+ * @deprecated v8.6 版本开始不推荐使用，建议使用 {@link startScreenCaptureInApp} 接口替代之。
  */
 #if TARGET_PLATFORM_DESKTOP
     trtc_attribute_deprecated virtual void selectScreenCaptureTarget(const TRTCScreenCaptureSourceInfo& source, const RECT& captureRect, bool captureMouse = true, bool highlightWindow = true) = 0;

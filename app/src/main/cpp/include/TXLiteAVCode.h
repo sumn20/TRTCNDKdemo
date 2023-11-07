@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2021 Tencent. All rights reserved.
+ * Module:   TRTC 错误码表
+ * Function: 用于通知客户 TRTC 在使用过程中出现的警告和错误
+ */
 #ifndef __TXLITEAVCODE_H__
 #define __TXLITEAVCODE_H__
 
@@ -208,6 +213,22 @@ enum TXLiteAVError {
 
     /// 当前是观众角色，不能请求或断开跨房连麦，需要先 `switchRole` 到主播
     ERR_TRTC_CONNECT_OTHER_ROOM_AS_AUDIENCE = -3330,
+
+    /////////////////////////////////////////////////////////////////////////////////
+    //       背景音乐播放相关错误码
+    /////////////////////////////////////////////////////////////////////////////////
+
+    /// 打开音频文件失败
+    ERR_BGM_OPEN_FAILED = -4001,
+
+    /// 音频文件解码失败
+    ERR_BGM_DECODE_FAILED = -4002,
+
+    /// 数量超过限定值，如同时预加载两首背景音乐
+    ERR_BGM_OVER_LIMIT = -4003,
+
+    /// 无效操作，如开始播放后再调用预加载操作
+    ERR_BGM_INVALID_OPERATION = -4004,
 };
 
 /**
@@ -244,8 +265,15 @@ enum TXLiteAVWarning {
     /// 用户未授权当前应用使用摄像头
     WARNING_CAMERA_NOT_AUTHORIZED = 1112,
 
+    /// 内存不足，部分功能可能不正常。
+    WARNING_OUT_OF_MEMORY = 1113,
+
     /// 用户未授权当前应用使用屏幕录制
     WARNING_SCREEN_CAPTURE_NOT_AUTHORIZED = 1206,
+
+    /// 表示解码器发生改变，可以通过 onWarning 函数的扩展信息中的 type 字段来获取当前的解码格式。
+    /// 其中 1 代表 265 解码，0 代表 264 解码。注意 Windows 端不支持此错误码的扩展信息。
+    WARNING_CURRENT_DECODE_TYPE_CHANGED = 2008,
 
     /// 当前视频帧解码失败
     WARNING_VIDEO_FRAME_DECODE_FAIL = 2101,
@@ -281,18 +309,30 @@ enum TXLiteAVWarning {
     /// 音频播放设备不可用（例如被占用或者PC判定无效设备）
     WARNING_SPEAKER_DEVICE_ABNORMAL = 1205,
 
+    /// 蓝牙设备连接失败（例如其他应用通过设置通话音量占用音频通道）
+    WARNING_BLUETOOTH_DEVICE_CONNECT_FAIL = 1207,
+
+    /// 音频采集设备被占用
+    WARNING_MICROPHONE_IS_OCCUPIED = 1208,
+
     /// 当前音频帧解码失败
     WARNING_AUDIO_FRAME_DECODE_FAIL = 2102,
 
     /// 音频录制写入文件失败
     WARNING_AUDIO_RECORDING_WRITE_FAIL = 7001,
 
+    /// 录制音频时监测到啸叫
+    WARNING_MICROPHONE_HOWLING_DETECTED = 7002,
+
     /////////////////////////////////////////////////////////////////////////////////
     //       网络相关警告码
     /////////////////////////////////////////////////////////////////////////////////i
 
-    /// 前是观众角色，不支持发布音视频，需要先切换成主播角色
+    /// 当前是观众角色，不支持发布音视频，需要先切换成主播角色
     WARNING_IGNORE_UPSTREAM_FOR_AUDIENCE = 6001,
+
+    /// 音视频发送时间戳异常，可能引起音画不同步问题
+    WARNING_UPSTREAM_AUDIO_AND_VIDEO_OUT_OF_SYNC = 6006,
 
 };
 
@@ -329,4 +369,4 @@ enum TXLiteAVWarning {
 typedef enum TXLiteAVError TXLiteAVError;
 typedef enum TXLiteAVWarning TXLiteAVWarning;
 
-#endif /* __TXLITEAVCODE_H__ */
+#endif

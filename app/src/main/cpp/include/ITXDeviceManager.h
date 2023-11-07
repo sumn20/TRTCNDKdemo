@@ -1,11 +1,8 @@
 /**
- * Module:   TRTC 音视频设备管理模块
+ * Copyright (c) 2021 Tencent. All rights reserved.
+ * Module:   音视频设备管理模块
  * Function: 用于管理摄像头、麦克风和扬声器等音视频相关的硬件设备
  */
-/// @defgroup TXDeviceManager_cplusplus TXDeviceManager
-/// Tencent Cloud Device Management Module
-/// @{
-
 #ifndef __ITXDEVICEMANAGER_H__
 #define __ITXDEVICEMANAGER_H__
 
@@ -23,8 +20,6 @@ class ITRTCVideoRenderCallback;
 //                    音视频设备相关的类型定义
 //
 /////////////////////////////////////////////////////////////////////////////////
-/// @name 音视频设备相关的类型定义
-/// @{
 
 /**
  * 系统音量类型（仅适用于移动设备）
@@ -32,9 +27,9 @@ class ITRTCVideoRenderCallback;
  * @deprecated v9.5 版本开始不推荐使用。
  * 现代智能手机中一般都具备两套系统音量类型，即“通话音量”和“媒体音量”。
  * - 通话音量：手机专门为接打电话所设计的音量类型，自带回声抵消（AEC）功能，并且支持通过蓝牙耳机上的麦克风进行拾音，缺点是音质比较一般。
- *            当您通过手机侧面的音量按键下调手机音量时，如果无法将其调至零（也就是无法彻底静音），说明您的手机当前出于通话音量。
+ *            当您通过手机侧面的音量按键下调手机音量时，如果无法将其调至零（也就是无法彻底静音），说明您的手机当前处于通话音量。
  * - 媒体音量：手机专门为音乐场景所设计的音量类型，无法使用系统的 AEC 功能，并且不支持通过蓝牙耳机的麦克风进行拾音，但具备更好的音乐播放效果。
- *            当您通过手机侧面的音量按键下调手机音量时，如果能够将手机音量调至彻底静音，说明您的手机当前出于媒体音量。
+ *            当您通过手机侧面的音量按键下调手机音量时，如果能够将手机音量调至彻底静音，说明您的手机当前处于媒体音量。
  *
  * SDK 目前提供了三种系统音量类型的控制模式：自动切换模式、全程通话音量模式、全程媒体音量模式。
  */
@@ -93,7 +88,7 @@ enum TXMediaDeviceType {
 /**
  * 设备操作
  *
- * 该枚举值用于本地设备的状态变化通知{@link onDeviceChanged}。
+ * 该枚举值用于本地设备的状态变化通知 {@link onDeviceChanged}。
  */
 enum TXMediaDeviceState {
 
@@ -139,13 +134,13 @@ enum TXCameraCaptureMode {
  * 该设置能决定本地预览图像画质。
  */
 struct TXCameraCaptureParam {
-    /// 【字段含义】摄像头采集偏好
+    ///**字段含义：** 摄像头采集偏好，请参见 {@link TXCameraCaptureMode}
     TXCameraCaptureMode mode;
 
-    /// 【字段含义】采集图像长度
+    ///**字段含义：** 采集图像长度
     int width;
 
-    /// 【字段含义】采集图像宽度
+    ///**字段含义：** 采集图像宽度
     int height;
 
     TXCameraCaptureParam() : mode(TXCameraResolutionStrategyAuto), width(640), height(360) {
@@ -156,7 +151,7 @@ struct TXCameraCaptureParam {
 /**
  * 音视频设备的相关信息（仅适用于桌面平台）
  *
- * 该结构体用于描述一个音视频设备的关键信息，比如设备ID、设备名称等等，以便用户能够在用户界面上选择自己期望使用的音视频设备。
+ * 该结构体用于描述一个音视频设备的关键信息，比如设备 ID、设备名称等等，以便用户能够在用户界面上选择自己期望使用的音视频设备。
  */
 class ITXDeviceInfo {
    protected:
@@ -164,10 +159,9 @@ class ITXDeviceInfo {
     }
 
    public:
-    /// release function, don't use delete!!!
     virtual void release() = 0;
 
-    /// 设备 id （UTF-8）
+    /// 设备 ID （UTF-8）
     virtual const char* getDevicePID() = 0;
 
     /// 设备名称 （UTF-8）
@@ -194,18 +188,17 @@ class ITXDeviceCollection {
     /// 设备唯一标识 (UTF-8) index 为设备索引，值为 [0,getCount)
     virtual const char* getDevicePID(uint32_t index) = 0;
 
-    /// 设备信息（json格式）
+    /// 设备信息（JSON 格式）
     ///@note
-    ///  - 示例：{"SupportedResolution":[{"width":640,"height":480},{"width":320,"height":240}]}
-    /// param index 设备索引，值为 [0,getCount)，return 返回 json 格式的设备信息
+    /// 示例：{"SupportedResolution":[{"width":640,"height":480},{"width":320,"height":240}]}
+    /// param index 设备索引，值为 [0,getCount)，return 返回 JSON 格式的设备信息
     virtual const char* getDeviceProperties(uint32_t index) = 0;
 
     /// 释放设备列表，请不要使用 delete 释放资源 !!!
     virtual void release() = 0;
 };
-/// @}
 
-#if (__APPLE__ && TARGET_OS_MAC && !TARGET_OS_IPHONE) || _WIN32
+#if (__APPLE__ && TARGET_OS_MAC && !TARGET_OS_IPHONE) || _WIN32 || (!__ANDROID__ && __linux__)
 class ITXDeviceObserver {
    public:
     virtual ~ITXDeviceObserver() {
@@ -221,8 +214,7 @@ class ITXDeviceObserver {
      */
     virtual void onDeviceChanged(const char* deviceId, TXMediaDeviceType type, TXMediaDeviceState state) {
     }
-
-};  // End of class ITXDeviceObserver
+};
 #endif
 
 class ITXDeviceManager {
@@ -235,11 +227,9 @@ class ITXDeviceManager {
    public:
 /////////////////////////////////////////////////////////////////////////////////
 //
-//                    移动端设备操作接口（iOS Android）
+//                    设备操作接口
 //
 /////////////////////////////////////////////////////////////////////////////////
-/// @name 移动端设备操作接口
-/// @{
 
 /**
  * 1.1 判断当前是否为前置摄像头（仅适用于移动端）
@@ -304,15 +294,6 @@ class ITXDeviceManager {
     virtual int setAudioRoute(TXAudioRoute route) = 0;
 #endif
 
-/// @}
-/////////////////////////////////////////////////////////////////////////////////
-//
-//                    桌面端设备操作接口（Windows Mac）
-//
-/////////////////////////////////////////////////////////////////////////////////
-/// @name 桌面端设备操作接口
-/// @{
-
 /**
  * 2.1 获取设备列表（仅适用于桌面端）
  *
@@ -321,9 +302,9 @@ class ITXDeviceManager {
  *   - 使用完毕后请调用 release 方法释放资源，这样可以让 SDK 维护 ITXDeviceCollection 对象的生命周期。
  *   - 不要使用 delete 释放返回的 Collection 对象，delete ITXDeviceCollection* 指针会导致异常崩溃。
  *   - type 只支持 TXMediaDeviceTypeMic、TXMediaDeviceTypeSpeaker、TXMediaDeviceTypeCamera。
- *   - 此接口只支持 Mac 和 Windows 平台
+ *   - 此接口只支持 Mac 和 Windows 平台。
  */
-#if (__APPLE__ && TARGET_OS_MAC && !TARGET_OS_IPHONE) || _WIN32
+#if (__APPLE__ && TARGET_OS_MAC && !TARGET_OS_IPHONE) || _WIN32 || (!__ANDROID__ && __linux__)
     virtual ITXDeviceCollection* getDevicesList(TXMediaDeviceType type) = 0;
 
     /**
@@ -345,7 +326,6 @@ class ITXDeviceManager {
      *
      * 这里的音量指的是麦克风的采集音量或者扬声器的播放音量，摄像头是不支持设置音量的。
      * @param volume 音量大小，取值范围为0 - 100，默认值：100。
-     * @note 如果将 volume 设置成 100 之后感觉音量还是太小，可以将 volume 最大设置成 150，但超过 100 的 volume 会有爆音的风险，请谨慎操作。
      */
     virtual int setCurrentDeviceVolume(TXMediaDeviceType type, uint32_t volume) = 0;
 
@@ -376,8 +356,8 @@ class ITXDeviceManager {
      * 仅支持设置麦克风和扬声器类型，摄像头暂不支持跟随系统默认设备
      * @param type 设备类型，详见 TXMediaDeviceType 定义。
      * @param enable 是否跟随系统默认的音频设备。
-     *         - true：跟随。当系统默认音频设备发生改变时，SDK 立即切换音频设备。
-     *         - false：不跟随。只有当 SDK 使用的音频设备被移除后或插入新的音频设备为系统默认设备时，SDK 才切换至系统默认的音频设备。
+     *         - true：跟随。当系统默认音频设备发生改变或者有新音频设备插入时，SDK 立即切换音频设备。
+     *         - false：不跟随。当系统默认音频设备发生改变或者有新音频设备插入时，SDK 不会切换音频设备。
      */
     virtual int enableFollowingDefaultAudioDevice(TXMediaDeviceType type, bool enable) = 0;
 
@@ -398,7 +378,7 @@ class ITXDeviceManager {
      *
      * 该接口可以测试麦克风是否能正常工作，测试到的麦克风采集音量的大小，会以回调的形式通知给您，其中 volume 的取值范围为0 - 100。
      * @param interval 麦克风音量的回调间隔。
-     * @note 该接口调用后默认会回播麦克风录制到的声音到扬声器中
+     * @note 该接口调用后默认会回播麦克风录制到的声音到扬声器中。
      */
     virtual int startMicDeviceTest(uint32_t interval) = 0;
 
@@ -407,7 +387,7 @@ class ITXDeviceManager {
      *
      * 该接口可以测试麦克风是否能正常工作，测试到的麦克风采集音量的大小，会以回调的形式通知给您，其中 volume 的取值范围为0 - 100。
      * @param interval 麦克风音量的回调间隔。
-     * @param playback 是否开启回播麦克风声音，开启后用户测试麦克风时会听到自己的声音
+     * @param playback 是否开启回播麦克风声音，开启后用户测试麦克风时会听到自己的声音。
      */
     virtual int startMicDeviceTest(uint32_t interval, bool playback) = 0;
 
@@ -475,38 +455,27 @@ class ITXDeviceManager {
 /**
  * 2.23 设置 onDeviceChanged 事件回调
  */
-#if (__APPLE__ && TARGET_OS_MAC && !TARGET_OS_IPHONE) || _WIN32
+#if (__APPLE__ && TARGET_OS_MAC && !TARGET_OS_IPHONE) || _WIN32 || (!__ANDROID__ && __linux__)
     virtual void setDeviceObserver(ITXDeviceObserver* observer) = 0;
 #endif
 
-/// @}
 /////////////////////////////////////////////////////////////////////////////////
 //
 //                    弃用接口（建议使用对应的新接口）
 //
 /////////////////////////////////////////////////////////////////////////////////
-/// @name 弃用接口（建议使用对应的新接口）
-/// @{
 
 /**
  * 设置系统音量类型（仅适用于移动端）
  *
- * @deprecated v9.5 版本开始不推荐使用，建议使用 {@link TRTCCloud} 中的 startLocalAudio(quality) 接口替代之，通过 quality 参数来决策音质。
+ * @deprecated v9.5 版本开始不推荐使用，建议使用 `TRTCCloud` 中的 startLocalAudio(quality) 接口替代之，通过 quality 参数来决策音质。
  */
 #if __ANDROID__ || (__APPLE__ && TARGET_OS_IOS)
     virtual int setSystemVolumeType(TXSystemVolumeType type) = 0;
 #endif
-
-    /// @}
-};  // End of class ITXDeviceManager
+};
 }  // namespace liteav
-
-// 9.0 开始 C++ 接口将声明在 liteav 命名空间下，为兼容之前的使用方式，将 trtc 作为 liteav 的别名
-// namespace trtc = liteav;
-
 #ifdef _WIN32
 using namespace liteav;
 #endif
-
-#endif /* __ITXDEVICEMANAGER_H__ */
-/// @}
+#endif

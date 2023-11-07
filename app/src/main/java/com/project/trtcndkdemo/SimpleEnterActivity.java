@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.project.trtcndkdemo.databinding.ActivitySimpleEnterBinding;
 
+import java.util.Random;
+
 public class SimpleEnterActivity extends BaseActivity {
     ActivitySimpleEnterBinding binding;
     @Override
@@ -18,6 +20,9 @@ public class SimpleEnterActivity extends BaseActivity {
         binding = ActivitySimpleEnterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         bindToolbarWithBack(binding.toolbar);
+        Random random=new Random();
+        int num = random.nextInt(900000) + 100000;
+        binding.userId.setText(String.valueOf(num));
         binding.enterRoom.setOnClickListener(view -> {
             String roomID=binding.roomId.getText().toString();
             String userID=binding.userId.getText().toString();
